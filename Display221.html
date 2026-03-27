@@ -21,31 +21,24 @@
 <iframe id="projectFrame"></iframe>
 
 <script>
-  // LIST OF PROJECTS FOR DISPLAY 221 (use /embed/ links for interactivity)
+  // List of projects for Display 221 (use /embed/ links for interactivity)
   const projects = [
     "https://editor.p5js.org/breakpoints.mhc/embed/qVbi5pAhr",
     "https://editor.p5js.org/breakpoints.mhc/embed/ywW4RihaT",
     "https://editor.p5js.org/breakpoints.mhc/embed/OdK3eB3nW"
   ];
 
-  // 1 MINUTE in milliseconds (for testing)
-  const ONE_MINUTE = 60 * 1000;
+  const ONE_MINUTE = 60 * 1000; // testing interval
+  let currentIndex = 0; // keeps track of which project to show
 
-  function getCurrentProjectIndex() {
-    const startDate = new Date("2026-01-01"); // rotation start date
-    const now = new Date();
-
-    const minutes = Math.floor((now - startDate) / ONE_MINUTE);
-    return minutes % projects.length;
-  }
-
+  // Load the current project in the iframe and update index
   function loadProject() {
-    const index = getCurrentProjectIndex();
-    document.getElementById("projectFrame").src = projects[index];
+    document.getElementById("projectFrame").src = projects[currentIndex];
+    currentIndex = (currentIndex + 1) % projects.length; // cycle back to first project
   }
 
-  loadProject();
-  setInterval(loadProject, ONE_MINUTE); // reload every minute
+  loadProject(); // initial load
+  setInterval(loadProject, ONE_MINUTE); // rotate every minute
 </script>
 
 </body>
