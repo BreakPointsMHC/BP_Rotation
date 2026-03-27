@@ -7,7 +7,6 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
     }
     iframe {
       width: 100%;
@@ -22,38 +21,21 @@
 
 <script>
   const projects = [
-    "https://editor.p5js.org/breakpoints.mhc/embed/full/qVbi5pAhr",
-    "https://editor.p5js.org/breakpoints.mhc/embed/full/ywW4RihaT",
-    "https://editor.p5js.org/breakpoints.mhc/embed/full/OdK3eB3nW"
+    "https://breakpointsmhc.github.io/BP_Rotation/Galaxy_2026_03_27_22_40_58/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Water_effect_with_Sound_2026_03_27_22_41_20/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/blobby_virus_copy_2026_03_27_22_39_47/index.html"
   ];
 
   const ONE_MINUTE = 60 * 1000;
+  let currentIndex = 0;
 
-  let currentIndex = -1; // track current project
-
-  function getCurrentProjectIndex() {
-    const startDate = new Date("2026-01-01");
-    const now = new Date();
-    const minutes = Math.floor((now - startDate) / ONE_MINUTE);
-
-    return ((minutes % projects.length) + projects.length) % projects.length;
+  function loadProject() {
+    document.getElementById("projectFrame").src = projects[currentIndex];
+    currentIndex = (currentIndex + 1) % projects.length;
   }
 
-  function checkAndUpdateProject() {
-    const newIndex = getCurrentProjectIndex();
-
-    // ONLY update if project actually changed
-    if (newIndex !== currentIndex) {
-      currentIndex = newIndex;
-      document.getElementById("projectFrame").src = projects[currentIndex];
-    }
-  }
-
-  // initial load
-  checkAndUpdateProject();
-
-  // check every 5 seconds (NOT reload every time)
-  setInterval(checkAndUpdateProject, 5000);
+  loadProject();
+  setInterval(loadProject, ONE_MINUTE);
 </script>
 
 </body>
