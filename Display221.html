@@ -41,10 +41,11 @@
 
   function loadProject() {
     const index = getCurrentProjectIndex();
-    document.getElementById("projectFrame").src = projects[index];
+    window.location.href = projects[getIndex()];
   }
 
   loadProject();
+  setInterval(loadProject, ONE_MINUTE);
 </script>
 
 </body>
