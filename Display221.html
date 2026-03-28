@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Display 221 Rotation</title>
+  <title>Display 221 Rotation Test</title>
   <style>
     body, html {
       margin: 0;
@@ -22,30 +22,41 @@
 
 <script>
   const projects = [
-    "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
-    "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
-    "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
+    "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",  // first project
+    "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",   // second project
+    "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"   // third project
   ];
 
-  const FIRST_PROJECT_DELAY = 5000; // 5 seconds
-  const ROTATION_INTERVAL = 60 * 1000; // 1 minute
-  let currentIndex = 0;
+  const firstDuration = 1 * 60 * 1000; // 1 minute
+  const secondDuration = 2 * 60 * 1000; // 2 minutes
+  const rotationInterval = 2 * 60 * 1000; // after second project, continue rotating every 2 minutes
 
   const iframe = document.getElementById("projectFrame");
 
-  // Step 1: Load first project for 5 seconds
-  iframe.src = projects[0];
+  let currentIndex = 0;
 
+  // Step 1: Load first project
+  iframe.src = projects[currentIndex];
+
+  // Step 2: After 1 minute, switch to second project
   setTimeout(() => {
-    // Step 2: start rotation from second project
     currentIndex = 1;
     iframe.src = projects[currentIndex];
 
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % projects.length;
+    // Step 3: After 2 minutes, start automatic rotation of all projects
+    setTimeout(() => {
+      currentIndex = 2; // move to third project
       iframe.src = projects[currentIndex];
-    }, ROTATION_INTERVAL);
-  }, FIRST_PROJECT_DELAY);
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % projects.length;
+        iframe.src = projects[currentIndex];
+      }, rotationInterval);
+
+    }, secondDuration);
+
+  }, firstDuration);
+
 </script>
 
 </body>
