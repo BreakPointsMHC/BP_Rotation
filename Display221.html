@@ -7,26 +7,38 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
     }
     iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
+    /* hidden iframes for preloading */
+    .preload {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
+<!-- visible iframe -->
 <iframe id="projectFrame"></iframe>
 
+<!-- hidden iframes to preload all projects -->
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html" class="preload"></iframe>
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Water/index.html" class="preload"></iframe>
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html" class="preload"></iframe>
+
 <script>
+  // list of project URLs
   const projects = [
     "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
     "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
     "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
   ];
 
-  const ONE_MINUTE = 60 * 1000;
+  const ONE_MINUTE = 60 * 1000; // rotation interval (change for testing)
   let currentIndex = 0;
 
   function loadProject() {
@@ -34,7 +46,10 @@
     currentIndex = (currentIndex + 1) % projects.length;
   }
 
+  // first load
   loadProject();
+
+  // rotate every interval
   setInterval(loadProject, ONE_MINUTE);
 </script>
 
