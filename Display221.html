@@ -2,46 +2,29 @@
 <html>
 <head>
   <title>Display 221 Rotation</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
+  <script>
+    const projects = [
+      "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
+      "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
+      "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
+    ];
+
+    const ONE_MINUTE = 60 * 1000; // rotation interval
+    let currentIndex = 0;
+
+    function loadProject() {
+      window.location.href = projects[currentIndex];
+      currentIndex = (currentIndex + 1) % projects.length;
     }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+
+    // first load immediately
+    loadProject();
+
+    // rotate every minute
+    setInterval(loadProject, ONE_MINUTE);
+  </script>
 </head>
 <body>
-
-<iframe id="projectFrame"></iframe>
-
-<script>
-  const projects = [
-    "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
-    "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
-    "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
-  ];
-
-  const ONE_MINUTE = 60 * 1000; // rotation interval
-  let currentIndex = 0;
-
-  function loadProject() {
-    document.getElementById("projectFrame").src = projects[currentIndex];
-    currentIndex = (currentIndex + 1) % projects.length;
-  }
-
-  // Option 2: add a short delay for first project
-  // This gives p5.js time to fully initialize before rotation starts
-  setTimeout(() => {
-    loadProject(); // first project loads after 500ms
-    setInterval(loadProject, ONE_MINUTE); // then rotate every minute
-  }, 500); // 500ms delay; you can increase to 1000ms if needed
-</script>
-
+  <h1 style="text-align:center; margin-top: 20%;">Loading project...</h1>
 </body>
 </html>
