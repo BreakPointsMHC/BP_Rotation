@@ -3,32 +3,39 @@
 <head>
   <title>Display 221 Rotation</title>
   <script>
-    // List of project URLs
     const projects = [
       "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
       "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
       "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
     ];
 
-    const ONE_MINUTE = 60 * 1000; // rotation interval
+    const FIRST_PROJECT_DELAY = 5000; // 5 seconds
+    const ROTATION_INTERVAL = 60 * 1000; // 1 minute
     let currentIndex = 0;
 
-    function loadProject() {
-      // Redirect the whole page to the current project
-      window.location.href = projects[currentIndex];
-      // Move to the next project for the next rotation
-      currentIndex = (currentIndex + 1) % projects.length;
+    function loadProject(index) {
+      window.location.href = projects[index];
     }
 
-    // Load first project immediately when page opens
-    window.onload = loadProject;
+    // Step 1: Load first project for 5 seconds
+    window.onload = () => {
+      loadProject(0);
 
-    // Rotate every interval (this will run after the page reloads)
-    setInterval(loadProject, ONE_MINUTE);
+      // Step 2: After 5 seconds, move to next project and start regular rotation
+      setTimeout(() => {
+        currentIndex = 1; // start from second project
+        loadProject(currentIndex);
+
+        // rotate every minute
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % projects.length;
+          loadProject(currentIndex);
+        }, ROTATION_INTERVAL);
+      }, FIRST_PROJECT_DELAY);
+    };
   </script>
 </head>
 <body>
   <h1 style="text-align:center; margin-top: 20%;">Loading project...</h1>
-  <p style="text-align:center;">Please wait while the first project loads...</p>
 </body>
 </html>
