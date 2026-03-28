@@ -7,6 +7,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
     }
     iframe {
       width: 100%;
@@ -26,7 +27,7 @@
     "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
   ];
 
-  const ONE_MINUTE = 60 * 1000;
+  const ONE_MINUTE = 60 * 1000; // rotation interval
   let currentIndex = 0;
 
   function loadProject() {
@@ -34,8 +35,12 @@
     currentIndex = (currentIndex + 1) % projects.length;
   }
 
-  loadProject();
-  setInterval(loadProject, ONE_MINUTE);
+  // Option 2: add a short delay for first project
+  // This gives p5.js time to fully initialize before rotation starts
+  setTimeout(() => {
+    loadProject(); // first project loads after 500ms
+    setInterval(loadProject, ONE_MINUTE); // then rotate every minute
+  }, 500); // 500ms delay; you can increase to 1000ms if needed
 </script>
 
 </body>
