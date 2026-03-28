@@ -2,30 +2,41 @@
 <html>
 <head>
   <title>Display 221 Rotation</title>
-  <script>
-    // list of project URLs
-    const projects = [
-      "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
-      "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
-      "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
-    ];
-
-    const ONE_MINUTE = 60 * 1000; // rotation interval
-    let currentIndex = 0;
-
-    function loadProject() {
-      window.location.href = projects[currentIndex];
-      currentIndex = (currentIndex + 1) % projects.length;
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
     }
-
-    // first load after short delay to ensure browser readiness
-    setTimeout(loadProject, 500);
-    // rotate every interval
-    setInterval(loadProject, ONE_MINUTE);
-  </script>
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-  <!-- optional message while first project loads -->
-  <h1 style="text-align:center; margin-top: 20%;">Loading project...</h1>
+
+<iframe id="projectFrame"></iframe>
+
+<script>
+  const projects = [
+    "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
+  ];
+
+  const ONE_MINUTE = 60 * 1000;
+  let currentIndex = 0;
+
+  function loadProject() {
+    document.getElementById("projectFrame").src = projects[currentIndex];
+    currentIndex = (currentIndex + 1) % projects.length;
+  }
+
+  loadProject();
+  setInterval(loadProject, ONE_MINUTE);
+</script>
+
 </body>
 </html>
