@@ -2,40 +2,51 @@
 <html>
 <head>
   <title>Display 221 Rotation</title>
-  <script>
-    const projects = [
-      "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
-      "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
-      "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
-    ];
-
-    const FIRST_PROJECT_DELAY = 5000; // 5 seconds
-    const ROTATION_INTERVAL = 60 * 1000; // 1 minute
-    let currentIndex = 0;
-
-    function loadProject(index) {
-      window.location.href = projects[index];
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
     }
-
-    // Step 1: Load first project for 5 seconds
-    window.onload = () => {
-      loadProject(0);
-
-      // Step 2: After 5 seconds, move to next project and start regular rotation
-      setTimeout(() => {
-        currentIndex = 1; // start from second project
-        loadProject(currentIndex);
-
-        // rotate every minute
-        setInterval(() => {
-          currentIndex = (currentIndex + 1) % projects.length;
-          loadProject(currentIndex);
-        }, ROTATION_INTERVAL);
-      }, FIRST_PROJECT_DELAY);
-    };
-  </script>
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-  <h1 style="text-align:center; margin-top: 20%;">Loading project...</h1>
+
+<iframe id="projectFrame"></iframe>
+
+<script>
+  const projects = [
+    "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"
+  ];
+
+  const FIRST_PROJECT_DELAY = 5000; // 5 seconds
+  const ROTATION_INTERVAL = 60 * 1000; // 1 minute
+  let currentIndex = 0;
+
+  const iframe = document.getElementById("projectFrame");
+
+  // Step 1: Load first project for 5 seconds
+  iframe.src = projects[0];
+
+  setTimeout(() => {
+    // Step 2: start rotation from second project
+    currentIndex = 1;
+    iframe.src = projects[currentIndex];
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % projects.length;
+      iframe.src = projects[currentIndex];
+    }, ROTATION_INTERVAL);
+  }, FIRST_PROJECT_DELAY);
+</script>
+
 </body>
 </html>
