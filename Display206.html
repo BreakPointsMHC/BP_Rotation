@@ -30,33 +30,25 @@
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keem/index.html",
   ];
 
-  const firstDuration = 15 * 1000;; // 1 minute
-  const secondDuration = 15 * 1000;; // 2 minutes
-  const rotationInterval = 15 * 1000;; // after second project, continue rotating every 2 minutes
+  const firstDuration = 30 * 1000;       // 30 seconds for dummy project
+  const rotationInterval = 15 * 1000;    // 15 seconds for the remaining projects
 
   const iframe = document.getElementById("projectFrame");
-
   let currentIndex = 0;
 
-  // Step 1: Load first project
+  // Step 1: Show dummy project first
   iframe.src = projects[currentIndex];
 
-  // Step 2: After 1 minute, switch to second project
+  // Step 2: After 30 seconds, switch to second project
   setTimeout(() => {
     currentIndex = 1;
     iframe.src = projects[currentIndex];
 
-    // Step 3: After 2 minutes, start automatic rotation of all projects
-    setTimeout(() => {
-      currentIndex = 2; // move to third project
+    // Step 3: Start rotating remaining projects every 15 seconds
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % projects.length;
       iframe.src = projects[currentIndex];
-
-      setInterval(() => {
-        currentIndex = (currentIndex + 1) % projects.length;
-        iframe.src = projects[currentIndex];
-      }, rotationInterval);
-
-    }, secondDuration);
+    }, rotationInterval);
 
   }, firstDuration);
 
