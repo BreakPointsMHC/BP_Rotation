@@ -22,9 +22,9 @@
 
 <script>
   const projects = [
-    "https://breakpointsmhc.github.io/BP_Rotation/Galaxy/index.html",  // first project
-    "https://breakpointsmhc.github.io/BP_Rotation/Water/index.html",   // second project
-    "https://breakpointsmhc.github.io/BP_Rotation/blobby/index.html"   // third project
+    "https://breakpointsmhc.github.io/BP_Rotation/Project/Galaxy/index.html",  // dummy project
+    "https://breakpointsmhc.github.io/BP_Rotation/Project/Water/index.html",   
+    "https://breakpointsmhc.github.io/BP_Rotation/Project/Falling_Sand/index.html",   
   ];
 
   const firstDuration = 1 * 60 * 1000; // 1 minute
