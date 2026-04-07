@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/addons/p5.sound.min.js"></script>
+    <script src="https://unpkg.com/ml5@0.9.3/dist/ml5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+    <style>
+      * { margin: 0; padding: 0; }
+      body {
+        background: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+      main {
+        width: 640px;
+        height: 480px;
+        overflow: hidden;
+      }
+      canvas { display: block; }
+      #instructions {
+        position: fixed;
+        top: 50%;
+        left: calc(50% + 330px);
+        transform: translateY(-50%);
+        color: white;
+        font-family: monospace;
+        font-size: 13px;
+        line-height: 2;
+        pointer-events: none;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <main></main>
+    <div id="instructions">
+  <b>BEAT THE STAT</b><br>
+  <br>
+  You are taking a penalty kick<br>
+  against a real pro goalkeeper.<br>
+  <br>
+  <b>HOW TO PLAY:</b><br>
+  <br>
+  1. Raise your hand<br>
+  2. Point to where you want<br>
+  &nbsp;&nbsp;&nbsp;to aim your kick<br>
+  3. Hold still to shoot<br>
+  <br>    
+  <b>PRO TIP:</b><br>
+  <br>
+  Aim for the corners!<br>
+  Goalkeepers save 72% of<br>
+  shots aimed at the center.<br>
+  Corners are much harder<br>
+  for them to reach in time.<br>
+</div>
+    <script src="sketch.js"></script>
+  </body>
+</html>
