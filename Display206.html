@@ -29,8 +29,8 @@
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html",
   ];
 
-  const FIRST_DURATION = 30 * 1000;    // 30 sec (dummy)
-  const ROTATION_INTERVAL = 15 * 1000; // 15 sec (others)
+  const FIRST_DURATION = 30 * 1000;                 // 30 sec for dummy
+  const ROTATION_INTERVAL = 24 * 60 * 60 * 1000;    // 1 day for other projects
 
   const iframe = document.getElementById("projectFrame");
   let currentIndex = 0;
@@ -41,7 +41,7 @@
       currentIndex = 1;
       iframe.src = projects[currentIndex];
 
-      // Then rotate every 15s
+      // Then rotate every 1 day
       setInterval(() => {
         currentIndex = (currentIndex + 1) % projects.length;
         iframe.src = projects[currentIndex];
@@ -50,9 +50,8 @@
     }, FIRST_DURATION);
   }
 
-  // KEY FIX: wait until first project fully loads
+  // Wait until first project fully loads
   iframe.onload = () => {
-    // Only trigger once (important!)
     if (currentIndex === 0) {
       startRotation();
     }
