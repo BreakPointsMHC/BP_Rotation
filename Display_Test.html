@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Display Rotation Test</title>
+  <title>Display Rotation Smooth</title>
   <style>
     body, html {
       margin: 0;
@@ -10,43 +10,53 @@
       overflow: hidden;
     }
     iframe {
+      position: absolute;
       width: 100%;
       height: 100%;
       border: none;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+    iframe.active {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-<iframe id="projectFrame"></iframe>
+<!-- Preload ALL projects -->
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html"></iframe>
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html"></iframe>
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/elephant/index.html"></iframe>
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html"></iframe>
+<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html"></iframe>
 
 <script>
-  const projects = [
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html",  // first dummy project
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html",   
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/elephant/index.html",   
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html",
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html",
-  ];
+  const iframes = document.querySelectorAll("iframe");
 
   const FIRST_DURATION = 30 * 1000;    // 30 sec (dummy)
-  const ROTATION_INTERVAL = 30 * 1000; // 30 sec (all others)
+  const ROTATION_INTERVAL = 30 * 1000; // 30 sec (others)
 
-  const iframe = document.getElementById("projectFrame");
   let currentIndex = 0;
 
-  // Load first (dummy) project
-  iframe.src = projects[currentIndex];
+  function showProject(index) {
+    iframes.forEach(frame => frame.classList.remove("active"));
+    iframes[index].classList.add("active");
+  }
 
-  // Start rotation after dummy duration
+  // Show first (dummy)
+  showProject(0);
+
+  // After 30s → go to second
   setTimeout(() => {
     currentIndex = 1;
-    iframe.src = projects[currentIndex];
+    showProject(currentIndex);
 
-    // Then rotate all remaining projects every ROTATION_INTERVAL
+    // Rotate smoothly
     setInterval(() => {
-      currentIndex = (currentIndex + 1) % projects.length;
-      iframe.src = projects[currentIndex];
+      currentIndex = (currentIndex + 1) % iframes.length;
+      showProject(currentIndex);
     }, ROTATION_INTERVAL);
 
   }, FIRST_DURATION);
