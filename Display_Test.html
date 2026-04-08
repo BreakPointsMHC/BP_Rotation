@@ -22,7 +22,7 @@
 
 <script>
   const projects = [
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html",  //first will always dummy project
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html",  // first dummy project
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html",   
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/elephant/index.html",   
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html",
@@ -30,7 +30,7 @@
   ];
 
   const FIRST_DURATION = 30 * 1000;    // 30 sec (dummy)
-  const ROTATION_INTERVAL = 15 * 1000; // 15 sec (others)
+  const ROTATION_INTERVAL = 30 * 1000; // 30 sec (all others)
 
   const iframe = document.getElementById("projectFrame");
   let currentIndex = 0;
@@ -41,7 +41,7 @@
       currentIndex = 1;
       iframe.src = projects[currentIndex];
 
-      // Then rotate every 15s
+      // Then rotate every 30s
       setInterval(() => {
         currentIndex = (currentIndex + 1) % projects.length;
         iframe.src = projects[currentIndex];
@@ -50,9 +50,8 @@
     }, FIRST_DURATION);
   }
 
-  // KEY FIX: wait until first project fully loads
+  // wait until first project fully loads
   iframe.onload = () => {
-    // Only trigger once (important!)
     if (currentIndex === 0) {
       startRotation();
     }
