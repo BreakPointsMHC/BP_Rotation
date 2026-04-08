@@ -22,35 +22,45 @@
 
 <script>
   const projects = [
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Galaxy/index.html", // dummy project
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Galaxy/index.html", // dummy
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html",  
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html",   
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/elephant/index.html",   
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html",
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keem/index.html",
   ];
 
-  const firstDuration = 30 * 1000;       // 30 seconds for dummy project
-  const rotationInterval = 15 * 1000;    // 15 seconds for the remaining projects
+  const FIRST_DURATION = 30 * 1000;    // 30 sec (dummy)
+  const ROTATION_INTERVAL = 15 * 1000; // 15 sec (others)
 
   const iframe = document.getElementById("projectFrame");
   let currentIndex = 0;
 
-  // Step 1: Show dummy project first
-  iframe.src = projects[currentIndex];
-
-  // Step 2: After 30 seconds, switch to second project
-  setTimeout(() => {
-    currentIndex = 1;
-    iframe.src = projects[currentIndex];
-
-    // Step 3: Start rotating remaining projects every 15 seconds
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % projects.length;
+  function startRotation() {
+    // After 30s → go to second project
+    setTimeout(() => {
+      currentIndex = 1;
       iframe.src = projects[currentIndex];
-    }, rotationInterval);
 
-  }, firstDuration);
+      // Then rotate every 15s
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % projects.length;
+        iframe.src = projects[currentIndex];
+      }, ROTATION_INTERVAL);
+
+    }, FIRST_DURATION);
+  }
+
+  // KEY FIX: wait until first project fully loads
+  iframe.onload = () => {
+    // Only trigger once (important!)
+    if (currentIndex === 0) {
+      startRotation();
+    }
+  };
+
+  // Load first (dummy) project
+  iframe.src = projects[0];
 
 </script>
 
