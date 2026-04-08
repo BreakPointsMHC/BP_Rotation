@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Display Rotation Smooth</title>
+  <title>Display Rotation Stable</title>
   <style>
     body, html {
       margin: 0;
@@ -16,47 +16,56 @@
       border: none;
       top: 0;
       left: 0;
-      display: none;
-    }
-    iframe.active {
-      display: block;
     }
   </style>
 </head>
 <body>
 
-<!-- Preload ALL projects -->
-<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html"></iframe>
-<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html"></iframe>
-<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/elephant/index.html"></iframe>
-<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html"></iframe>
-<iframe src="https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html"></iframe>
+<iframe id="frameA"></iframe>
+<iframe id="frameB"></iframe>
 
 <script>
-  const iframes = document.querySelectorAll("iframe");
+  const projects = [
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/elephant/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html",
+  ];
 
-  const FIRST_DURATION = 30 * 1000;    // 30 sec (dummy)
-  const ROTATION_INTERVAL = 30 * 1000; // 30 sec (others)
+  const FIRST_DURATION = 30 * 1000;
+  const ROTATION_INTERVAL = 30 * 1000;
+
+  const frameA = document.getElementById("frameA");
+  const frameB = document.getElementById("frameB");
 
   let currentIndex = 0;
+  let showingA = true;
 
-  function showProject(index) {
-    iframes.forEach(frame => frame.classList.remove("active"));
-    iframes[index].classList.add("active");
+  function showFrame(index) {
+    if (showingA) {
+      frameB.src = projects[index];   // load next
+      frameB.style.zIndex = 2;
+      frameA.style.zIndex = 1;
+    } else {
+      frameA.src = projects[index];
+      frameA.style.zIndex = 2;
+      frameB.style.zIndex = 1;
+    }
+    showingA = !showingA;
   }
 
-  // Show first (dummy)
-  showProject(0);
+  // Start with first (dummy)
+  frameA.src = projects[0];
 
-  // After 30s → go to second
+  // After dummy duration
   setTimeout(() => {
     currentIndex = 1;
-    showProject(currentIndex);
+    showFrame(currentIndex);
 
-    // Rotate smoothly
     setInterval(() => {
-      currentIndex = (currentIndex + 1) % iframes.length;
-      showProject(currentIndex);
+      currentIndex = (currentIndex + 1) % projects.length;
+      showFrame(currentIndex);
     }, ROTATION_INTERVAL);
 
   }, FIRST_DURATION);
