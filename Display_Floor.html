@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <title>Display Floor Rotation Test</title>
@@ -27,17 +27,19 @@
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/Falling_Sand/index.html",   
   ];
 
-  const FIRST_DURATION = 15 * 1000;     // 15 seconds
-  const ROTATION_INTERVAL = 15 * 1000;  // 15 seconds
+  const FIRST_DURATION = 30 * 1000;                // 30 seconds for dummy
+  const ROTATION_INTERVAL = 24 * 60 * 60 * 1000;   // 1 day for other projects
 
   const iframe = document.getElementById("projectFrame");
   let currentIndex = 0;
 
   function startRotation() {
+    // After 30s → go to second project
     setTimeout(() => {
       currentIndex = 1;
       iframe.src = projects[currentIndex];
 
+      // Then rotate every 1 day
       setInterval(() => {
         currentIndex = (currentIndex + 1) % projects.length;
         iframe.src = projects[currentIndex];
@@ -46,14 +48,14 @@
     }, FIRST_DURATION);
   }
 
-  //  wait for first project to load before starting timer
+  // Wait for first project to load before starting timer
   iframe.onload = () => {
     if (currentIndex === 0) {
       startRotation();
     }
   };
 
-  // load first (dummy) project
+  // Load first (dummy) project
   iframe.src = projects[0];
 
 </script>
