@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Display 206 Rotation Test</title>
+  <title>Display Rotation Test</title>
   <style>
     body, html {
       margin: 0;
@@ -35,30 +35,21 @@
   const iframe = document.getElementById("projectFrame");
   let currentIndex = 0;
 
-  function startRotation() {
-    // After 30s → go to second project
-    setTimeout(() => {
-      currentIndex = 1;
-      iframe.src = projects[currentIndex];
-
-      // Then rotate every 30s
-      setInterval(() => {
-        currentIndex = (currentIndex + 1) % projects.length;
-        iframe.src = projects[currentIndex];
-      }, ROTATION_INTERVAL);
-
-    }, FIRST_DURATION);
-  }
-
-  // wait until first project fully loads
-  iframe.onload = () => {
-    if (currentIndex === 0) {
-      startRotation();
-    }
-  };
-
   // Load first (dummy) project
-  iframe.src = projects[0];
+  iframe.src = projects[currentIndex];
+
+  // Start rotation after dummy duration
+  setTimeout(() => {
+    currentIndex = 1;
+    iframe.src = projects[currentIndex];
+
+    // Then rotate all remaining projects every ROTATION_INTERVAL
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % projects.length;
+      iframe.src = projects[currentIndex];
+    }, ROTATION_INTERVAL);
+
+  }, FIRST_DURATION);
 
 </script>
 
