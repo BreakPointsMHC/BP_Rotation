@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Display floor Rotation Test</title>
+  <title>Display Floor Rotation Test</title>
   <style>
     body, html {
       margin: 0;
@@ -22,40 +22,39 @@
 
 <script>
   const projects = [
-    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Galaxy/index.html",  // dummy project
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Galaxy/index.html",  // dummy
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/Water/index.html",   
     "https://breakpointsmhc.github.io/BP_Rotation/Projects/Falling_Sand/index.html",   
   ];
 
-  const firstDuration = 1 * 60 * 1000; // 1 minute
-  const secondDuration = 2 * 60 * 1000; // 2 minutes
-  const rotationInterval = 2 * 60 * 1000; // after second project, continue rotating every 2 minutes
+  const FIRST_DURATION = 15 * 1000;     // 15 seconds
+  const ROTATION_INTERVAL = 15 * 1000;  // 15 seconds
 
   const iframe = document.getElementById("projectFrame");
-
   let currentIndex = 0;
 
-  // Step 1: Load first project
-  iframe.src = projects[currentIndex];
-
-  // Step 2: After 1 minute, switch to second project
-  setTimeout(() => {
-    currentIndex = 1;
-    iframe.src = projects[currentIndex];
-
-    // Step 3: After 2 minutes, start automatic rotation of all projects
+  function startRotation() {
     setTimeout(() => {
-      currentIndex = 2; // move to third project
+      currentIndex = 1;
       iframe.src = projects[currentIndex];
 
       setInterval(() => {
         currentIndex = (currentIndex + 1) % projects.length;
         iframe.src = projects[currentIndex];
-      }, rotationInterval);
+      }, ROTATION_INTERVAL);
 
-    }, secondDuration);
+    }, FIRST_DURATION);
+  }
 
-  }, firstDuration);
+  //  wait for first project to load before starting timer
+  iframe.onload = () => {
+    if (currentIndex === 0) {
+      startRotation();
+    }
+  };
+
+  // load first (dummy) project
+  iframe.src = projects[0];
 
 </script>
 
