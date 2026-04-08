@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Display 206 Rotation Test</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
 
+<iframe id="projectFrame"></iframe>
+
+<script>
+  const projects = [
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html",  //first will always dummy project
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html",   
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/elephant/index.html",   
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html",
+  ];
+
+  const FIRST_DURATION = 30 * 1000;    // 30 sec (dummy)
+  const ROTATION_INTERVAL = 15 * 1000; // 15 sec (others)
+
+  const iframe = document.getElementById("projectFrame");
+  let currentIndex = 0;
+
+  function startRotation() {
+    // After 30s → go to second project
+    setTimeout(() => {
+      currentIndex = 1;
+      iframe.src = projects[currentIndex];
+
+      // Then rotate every 15s
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % projects.length;
+        iframe.src = projects[currentIndex];
+      }, ROTATION_INTERVAL);
+
+    }, FIRST_DURATION);
+  }
+
+  // KEY FIX: wait until first project fully loads
+  iframe.onload = () => {
+    // Only trigger once (important!)
+    if (currentIndex === 0) {
+      startRotation();
+    }
+  };
+
+  // Load first (dummy) project
+  iframe.src = projects[0];
+
+</script>
+
+</body>
+</html>
