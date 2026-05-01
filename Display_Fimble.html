@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Display Fimble Rotation </title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
 
+<iframe id="projectFrame"></iframe>
+
+<script>
+  const projects = [  
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Cat_Breaking_Box/index.html",   
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/whiteboard/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Catch-a-pet/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/blobby/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/basketball/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/weather/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Water/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Magnetic_Ball/index.html",
+    "https://breakpointsmhc.github.io/BP_Rotation/Projects/Beechy_keen/index.html",
+  ];
+
+  const FIRST_DURATION = 30 * 1000;                 // 30 sec for dummy
+  const ROTATION_INTERVAL = 10 * 60 * 1000;         // 10 minutes for other projectsts
+
+  const iframe = document.getElementById("projectFrame");
+  let currentIndex = 0;
+
+  function startRotation() {
+    // After 30s → go to second project
+    setTimeout(() => {
+      currentIndex = 1;
+      iframe.src = projects[currentIndex];
+
+      // Then rotate every 10 minutes 
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % projects.length;
+        iframe.src = projects[currentIndex];
+      }, ROTATION_INTERVAL);
+
+    }, FIRST_DURATION);
+  }
+
+  // Wait until first project fully loads
+  iframe.onload = () => {
+    if (currentIndex === 0) {
+      startRotation();
+    }
+  };
+
+  // Load first (dummy) project
+  iframe.src = projects[0];
+
+</script>
+
+</body>
+</html>
